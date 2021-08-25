@@ -1,6 +1,7 @@
+
 ## Description
 
-[Nest](https://github.com/nestjs/nest) TypeScript repository.
+[Nest](https://github.com/nestjs/nest)  TypeScript repository.
 
 ## Installation
 
@@ -33,11 +34,10 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Yared](https://github.com/yared-dev)
-- linkedin - [Yared](https://www.linkedin.com/in/jose-galindo-868211205/)
-
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
 Nest is [MIT licensed](LICENSE).
-```
