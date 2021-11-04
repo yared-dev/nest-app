@@ -15,10 +15,13 @@ export class ProductoService {
   async getMany() {
     return await this.productoRepository.find();
   }
-  async getById(id: number) {
-    const producto = await this.productoRepository.findOne(id);
+
+  async getById(id: number, author?: User) {
+    const producto = await this.productoRepository
+      .findOne(id)
+      .then((p) => (!author ? p : !!p && author.id === p.author.id ? p : null));
     if (!producto)
-      throw new NotFoundException('producto does not exist or unauthorized');
+      throw new NotFoundException('Post does not exist or unauthorized');
     return producto;
   }
 
@@ -27,14 +30,14 @@ export class ProductoService {
     return await this.productoRepository.save(producto);
   }
 
-  async editOne(id: number, dto: EditProductoDto) {
-    const producto = await this.getById(id);
-    const editedproducto = Object.assign(producto, dto);
-    return await this.productoRepository.save(editedproducto);
+  async editOne(id: number, dto: EditProductoDto, author?: User) {
+    const producto = await this.getById(id, author);
+    const editedProducto = Object.assign(producto, dto);
+    return await this.productoRepository.save(editedProducto);
   }
 
-  async deleteOne(id: number) {
-    const producto = await this.getById(id);
+  async deleteOne(id: number, author?: User) {
+    const producto = await this.getById(id, author);
     return await this.productoRepository.remove(producto);
   }
 }

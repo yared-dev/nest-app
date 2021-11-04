@@ -1,7 +1,25 @@
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest)  TypeScript repository.
+[Nest](https://github.com/nestjs/nest) TypeScript repository.
+
+## Routes
+
+## Autorizacion via token
+
+headers: { Authorization: `Bearer ${token}` },
+key: "value"
+
+# logearte
+
+http://localhost:3000/auth/login
+
+# crear
+
+http://localhost:3000/post
+
+# articulo
+
+http://localhost:3000/articulo
 
 ## Installation
 
@@ -43,7 +61,6 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 - Author - [Yared](https://github.com/yared-dev)
 - Linkedin - [Yared-linkedin](https://www.linkedin.com/in/jose-galindo-868211205/)
-
 
 ## License
 

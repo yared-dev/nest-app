@@ -37,26 +37,61 @@ export class ProductoController {
   }
 
   @Auth({
-    resource: AppResources.POST,
+    resource: AppResources.PRODUCTO,
     action: 'create',
     possession: 'own',
   })
   @Post()
-  async createPost(@Body() dto: CreateProductoDto, @User() author: UserEntity) {
+  async createProducto(
+    @Body() dto: CreateProductoDto,
+    @User() author: UserEntity,
+  ) {
     const data = await this.productoService.createOne(dto, author);
     return { message: 'Producto created', data };
   }
 
+  @Auth({
+    resource: AppResources.PRODUCTO,
+    action: 'update',
+    possession: 'own',
+  })
   @Put(':id')
-  async editOne(@Param('id') id: number, @Body() dto: EditProductoDto) {
-    const data = await this.productoService.editOne(id, dto);
+  async editOne(
+    @Param('id') id: number,
+    @Body() dto: EditProductoDto,
+    @User() author: UserEntity,
+  ) {
+    let data;
+    if (
+      this.rolesBuilder.can(author.roles).updateAny(AppResources.PRODUCTO)
+        .granted
+    ) {
+      data = await this.productoService.editOne(id, dto);
+    } else {
+      data = await this.productoService.editOne(id, dto, author);
+    }
 
-    return { message: 'Producto edited', data };
+    return { message: 'PRODUCTO edited', data };
   }
 
+  @Auth({
+    resource: AppResources.PRODUCTO,
+    action: 'delete',
+    possession: 'own',
+  })
   @Delete(':id')
-  async deleteOne(@Param('id') id: number) {
-    const data = await this.productoService.deleteOne(id);
+  @Delete(':id')
+  async deleteOne(@Param('id') id: number, @User() author: UserEntity) {
+    let data;
+
+    if (
+      this.rolesBuilder.can(author.roles).deleteAny(AppResources.PRODUCTO)
+        .granted
+    ) {
+      data = await this.productoService.deleteOne(id);
+    } else {
+      data = await this.productoService.deleteOne(id, author);
+    }
     return { message: 'Producto deleted', data };
   }
 }

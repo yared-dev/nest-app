@@ -107,7 +107,7 @@ export class UserController {
       //esto es un admin
       data = await this.userService.editOne(id, dto);
       console.log('esto es un admi');
-    } else {
+    } else {xa
       //author
       const { roles, ...rest } = dto;
       data = await this.userService.editOne(id, rest, user);
